@@ -22,4 +22,6 @@ class Hello extends CI_Controller {
 	{
 		$this->load->view('hello_World');
 	}
+
+	echo "Perubahan terjadi";
 }
