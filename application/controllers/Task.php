@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Hello extends CI_Controller {
+class Task extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -18,8 +18,30 @@ class Hello extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	
+	public function __construct()
+{
+	parent::__construct();
+	$this->load->model('task_model');
+
+}
+
 	public function index()
 	{
-		$this->load->view('hello_World');
+		$data['task'] = $this->task_model->view();
+		$this->load->view('task',$data);
+	}
+
+	public function simpan()
+	{
+		$task = $this->input->post('task');
+		$data = array (
+			'id' => '',
+			'task' => $task,
+			'date' => date('Y-m-d'),
+			'time' => date('H:i:s'),
+			);
+		$table = 'task';
+		$this->task_model->simpan($table,$data);
 	}
 }
